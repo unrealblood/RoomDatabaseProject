@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.strength.roomdatabaseproject.DatabaseConverters
 
-@Database(entities = [ContactData::class], version = 2)
+@Database(entities = [ContactData::class], version = 1)
 @TypeConverters(DatabaseConverters::class)
 abstract class ContactDatabase : RoomDatabase() {
     abstract fun contactDao() : ContactDAO
@@ -19,7 +19,8 @@ abstract class ContactDatabase : RoomDatabase() {
         fun getDatabase(context : Context) : ContactDatabase {
             if(INSTANCE == null) {
                 synchronized(this) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext, ContactDatabase::class.java,  "contactsDB").build()
+                    INSTANCE = Room.databaseBuilder(context.applicationContext, ContactDatabase::class.java,  "contactsDB")
+                        .build()
                 }
             }
             return INSTANCE!!
