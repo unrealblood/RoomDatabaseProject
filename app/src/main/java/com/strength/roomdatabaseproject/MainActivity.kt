@@ -9,6 +9,7 @@ import com.strength.roomdatabaseproject.data.ContactData
 import com.strength.roomdatabaseproject.data.ContactDatabase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     private lateinit var contactDatabase : ContactDatabase
@@ -20,13 +21,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        contactDatabase = Room.databaseBuilder(applicationContext, ContactDatabase::class.java,  "contactsDB").build()
+        contactDatabase = ContactDatabase.getDatabase(this@MainActivity)
 
         mainTextView = findViewById(R.id.main_text_view)
 
         //insert in contacts Database
         GlobalScope.launch {
-            contactDatabase.contactDao().insertContact(ContactData(2, "Mohan", "88888"))
+            contactDatabase.contactDao().insertContact(ContactData(1, "Tarun", "66666", Date()))
         }
 
         mainTextView.setOnClickListener {
